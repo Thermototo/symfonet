@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}profils{% endblock %}
+
+{% block body %}
+<div class="container">
+    <div class="row"><div class="col"><h1>Liste des differents profils</h1></div></div>
+    <div class="row">
+        {# ici on veut afficher tous les articles du blog #}
+        {% for user in users %}
+        <div class="col-12 col-md-6">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h2>{{user.firstname }} {{user.lastname }}</h2>
+                    
+                </div>
+                <div class="card-body">
+                    {{ user.email }} <br>
+                    date de naissance : {{ user.birthAt|date('d/m/Y') }}
+                </div>
+                <div class="card-footer">
+                    <a href="{{ path('profil_show', {id: user.id}) }}" class="btn btn-link">En savoir plus..</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
