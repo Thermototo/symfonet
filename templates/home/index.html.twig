@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Fil d'actualité{% endblock %}
+
+{% block body %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-8">
+            {% for post in posts %}
+                <div class="card">
+                    <div class="card-body">
+                        <a href="{{ path('profil_show', {id: post.user.id}) }}">
+                            <strong>{{ post.user.firstname }} {{ post.user.lastname }}</strong>
+                        </a>
+                        <small>{{ post.publishedAt |date('d/m/Y') }}</small>
+                        <p>{{ post.content }}</p>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}
