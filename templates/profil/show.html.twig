@@ -4,7 +4,7 @@
 
 {% block body %}
 <div class="container">
-    <div class="row">
+    <div class="row ">
         <div class="col">
             <h1>{{ user.firstname }} {{user.lastname }}</h1>
             <p>
@@ -17,6 +17,7 @@
                         <small>{{ post.publishedAt |date('d/m/Y') }}</small>
                         <p>{{ post.content }}</p>
                     </div>
+                    {% include 'partials/_comments_list.html.twig' %}
                 </div>
             {% endfor %}
         </div>
