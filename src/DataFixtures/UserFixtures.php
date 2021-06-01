@@ -5,6 +5,7 @@ namespace App\DataFixtures;
 use Faker\Factory;
 use App\Entity\Post;
 use App\Entity\User;
+use App\Entity\Comment;
 use Doctrine\Persistence\ObjectManager;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
@@ -67,7 +68,8 @@ class UserFixtures extends Fixture
         $manager->flush();
 
 
-        /* boucle pour les post */
+        /* creation des post */
+        $tabPost = [];
         for($i = 0; $i < 100; $i++)
         {
             $newPost = new Post();
@@ -75,7 +77,22 @@ class UserFixtures extends Fixture
                 ->setContent($faker->realText())
                 ->setPublishedAt(new \DateTime())
                 ->setUser($faker->randomElement($users));
-            $manager->persist($newPost);  
+            $manager->persist($newPost);
+            $tabPost[] = $newPost; 
+        }
+        $manager->flush();
+
+
+        // creation des commentaires
+        for($i = 0; $i < 200; $i++)
+        {
+            $newComment = new Comment();
+            $newComment
+                ->setContent($faker->realText())
+                ->setCreatedAt(new \DateTime())
+                ->setPost($faker->randomElement($tabPost))
+                ->setUser($faker-> randomElement($users));
+            $manager->persist($newComment);  
         }
         $manager->flush();
     }
